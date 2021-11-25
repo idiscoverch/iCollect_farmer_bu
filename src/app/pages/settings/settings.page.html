@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{"SETTINGS" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>
+      {{"DATA_DOWNLOAD" | translate }}
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label stacked>{{"CONTACT_DATA" | translate }} </ion-label>
+      <ion-label>
+        <small>
+          <ion-icon name="calendar" color="danger" style="margin-right:7px;"></ion-icon>
+          {{ contact_data_date }}
+        </small>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{"PLATATION_DATA" | translate }} </ion-label>
+      <ion-label>
+        <small>
+          <ion-icon name="calendar" color="danger" style="margin-right:7px;"></ion-icon>
+          {{ plantation_data_date }}
+        </small>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="danger" (click)="localUpdate()">
+    <ion-icon name="cloud-download" style="margin-right:7px;"></ion-icon>
+    <small>{{"UPDATE_LOCAL_DB" | translate }}</small>
+  </ion-button>
+
+  <ion-row>
+    <ion-col col-6 no-padding>
+      <ion-button expand="block" color="danger" (click)="restFetchRegvalues()">
+        <small>Update Values</small>
+      </ion-button>
+    </ion-col>
+
+    <ion-col col-6 no-padding>
+      <ion-button expand="block" color="danger" (click)="restFetchTowns()">
+        <small>Update Towns</small>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-list>
+    <ion-list-header>
+      {{"DATA_UPLOAD" | translate }}
+    </ion-list-header>
+
+    <!--
+    <ion-item>
+      <ion-label>{{"FILE_TYPE" | translate }} </ion-label>
+      <ion-select [(ngModel)]="file_type" name="file_type" id="file_type" (ionChange)="fileType(file_type)">
+        <ion-select-option value="zip">Zip</ion-select-option>
+        <ion-select-option value="sqlite">SQLite</ion-select-option>
+      </ion-select>
+    </ion-item>
+    -->
+  </ion-list>
+
+  <div>
+    <ion-button expand="block" color="danger" (click)="backup()">
+      <ion-icon name="cloud-upload" style="margin-right:7px;"></ion-icon>
+      <small>{{"DB_BACKUP" | translate }}</small>
+    </ion-button>
+    <small *ngIf="backup_data" style="color: #676a6c;">
+      <ion-icon name="calendar" color="danger" style="margin-right:7px;"></ion-icon>
+      {{"LAST_BACKUP" | translate }} : {{ backup_data_date }}
+    </small>
+  </div>
+
+  <small style="margin-top: 15px;">
+    <ion-icon name="document" color="danger" style="margin-right:7px;"></ion-icon>
+    {{"UPLOAD_DOC" | translate }}
+  </small>
+
+  <ion-row style="padding-top: 30px;">
+    <ion-col col-6 no-padding>
+      <ion-button expand="block" color="primary" (click)="uploadContactDocs()">
+        <small>{{"CONTACT_DOCS_UPLOAD" | translate }}</small>
+      </ion-button>
+    </ion-col>
+
+    <ion-col col-6 no-padding>
+      <ion-button expand="block" color="primary" (click)="uploadPlantationDocs()">
+        <small>{{"PLANTATION_DOCS_UPLOAD" | translate }}</small>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <small *ngIf="document_data" style="color: #676a6c;">
+    <ion-icon name="calendar" color="danger" style="margin-right:7px;"></ion-icon>
+    {{"LAST_DOC_UPLOADED" | translate }} : {{ document_data_date }}
+  </small>
+
+  <div>
+    <ion-button expand="block" color="primary" (click)="notSyncList()">
+      <ion-icon name="sync" style="margin-right:7px;"></ion-icon>
+      <small>{{"NOT_SYNC_LIST" | translate }}</small>
+    </ion-button>
+  </div>
+
+  <small style="margin-top: 15px;">
+    <ion-icon name="location-outline" color="danger" style="margin-right:7px;"></ion-icon>
+    {{"UPLOAD_LOCATION_PIC" | translate }}
+  </small>
+
+
+  <div style="height: 20px; width: 100%;"></div>
+
+  <div>
+    <ion-button expand="block" color="danger" (click)="uploadLocationDocs()">
+      <ion-icon name="pin" style="margin-right:7px;"></ion-icon>
+      <small>{{"LOCATION_PICS_UPLOAD" | translate }}</small>
+    </ion-button>
+  </div>
+
+
+  <ion-list>
+    <ion-list-header>
+      {{"USER_MANAGEMENT" | translate }}
+    </ion-list-header>
+  </ion-list>
+
+  <div>
+    <ion-button expand="block" color="danger" (click)="deleteDatabase()">
+      <ion-icon name="trash" style="margin-right:7px;"></ion-icon>
+      <small>{{"DELETE_DB" | translate }} </small>
+    </ion-button>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>{{"HIGH_ACCURACY" | translate }} </ion-label>
+      <ion-toggle [(ngModel)]="high_accuracy_value" name="high_accuracy_value" (ionChange)="changeAccuracy()">
+      </ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{"LANG_SELECT" | translate }} </ion-label>
+      <ion-select [(ngModel)]="lang" name="lang" id="lang" (ionChange)="changeLanguage(lang)">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="fr">Français</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{"SEARCH_TYPE" | translate }} </ion-label>
+      <ion-select [(ngModel)]="search_type" name="search_type" id="search_type" (ionChange)="searchType(search_type)">
+        <ion-select-option value="name">Nom</ion-select-option>
+        <ion-select-option value="code">Code</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-list>
+      <ion-list-header>
+        Trace
+        <small style="color:red;">{{"TRACE_TIME_SECONDE" | translate }}</small>
+      </ion-list-header>
+    </ion-list>
+  </ion-list>
+
+  <ion-row>
+    <ion-col col-2>
+      <img src="../../../assets/walker_black.png" />
+    </ion-col>
+    <ion-col col-6>
+      <ion-input type="number" [(ngModel)]="walker_time" name="walker_time"></ion-input>
+    </ion-col>
+    <ion-col col-4>
+      <ion-button expand="full" (click)="saveWalkerTime()" color="danger">
+        {{"UPDATE" | translate }}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col-2>
+      <img src="../../../assets/car_black.png" />
+    </ion-col>
+    <ion-col col-6>
+      <ion-input type="number" [(ngModel)]="car_time" name="car_time"></ion-input>
+    </ion-col>
+    <ion-col col-4>
+      <ion-button expand="full" (click)="saveCarTime()" color="danger">
+        {{"UPDATE" | translate }}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

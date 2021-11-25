@@ -1,0 +1,7 @@
+ionic cordova build --release android
+keytool -genkey -v -keystore icollect_farmer-key.keystore -alias icollect_farmer -keyalg RSA -keysize 2048 -validity 10000
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore icollect_farmer-key.keystore app-release-unsigned.apk icollect_farmer
+zipalign -v 4 app-release-unsigned.apk icollect_farmer.apk
+
+
+Qwerty4321

@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="backBtn">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Trace</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3 *ngIf="traces.length == 0" text-center>{{"NO_POINT_SAVED" | translate }}</h3> 
+
+  <ion-list>
+    <ion-item>
+      <ion-label color="danger">
+        <strong>{{"CURRENT_ACCURACY" | translate }}: </strong>
+        {{ precision }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngFor="let item of traces" text-wrap>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label>
+        <h2><strong>Long :</strong> {{item.coordx}}</h2>
+        <h2><strong>Lat :</strong> {{item.coordy}}</h2>
+        <p><strong>{{"ACCURACY" | translate }} :</strong> {{item.accuracy}}</p>
+      </ion-label>
+
+      <ion-button slot="end" fill="clear" (click)="deletePoint(item)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab horizontal="end" vertical="center" slot="fixed" *ngIf="backBtn">
+  <ion-fab-button color="{{ car_color }}" (click)="setTimeOut('car');">
+    <img src="../../../assets/car.png" style="width:60%" />
+  </ion-fab-button>
+
+  <ion-fab-button color="{{ walker_color }}" style="margin-top:20px;" (click)="setTimeOut('walker');">
+    <img src="../../../assets/walker.png" style="width:60%" />
+  </ion-fab-button>
+</ion-fab>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row *ngIf="saveBtn">
+      <ion-col col-6>
+        <ion-button expand="full" (click)="save()" [disabled]="disableSave">
+          {{"SAVE" | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row *ngIf="!saveBtn">
+      <ion-col col-6>
+        <ion-button expand="full" (click)="start()" color="success" [disabled]="startBtn">
+          {{"START_WAY_POINT" | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col col-6>
+        <ion-button expand="full" (click)="stop()" color="danger" [disabled]="stopBtn">
+          {{"STOP_WAYPOINT" | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{"SELECT_TOWN" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="width:100%">
+    <div style="width:80%; float:left;">
+      <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
+    </div>
+    <div style="width:20%; float:left; padding-top:5px;">
+      <ion-button expand="block" color="danger" (click)="searchFromTown()"> OK </ion-button>
+    </div>
+  </div>
+
+  <ion-spinner *ngIf="spinner" style="text-align: center; margin-top: 45%;" name="lines"></ion-spinner>
+  <small *ngIf="!spinner" style="text-align: center;">Entrez le nom de la ville recherchée, et Cliquez sur OK.</small>
+
+  <ion-list style="margin-top: 30px;">
+    <ion-item *ngFor="let item of towns" (click)="itemTown(item)">
+      <ion-label>
+        <h3><strong>{{item.name_town}}</strong></h3>
+        <p>{{item.region3}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="chevron-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <h3 style="text-align: center;">{{ results }}</h3>
+</ion-content>

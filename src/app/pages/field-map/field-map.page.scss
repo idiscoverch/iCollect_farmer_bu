@@ -1,0 +1,14 @@
+#field-map { 
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+#map-type {
+    position: absolute;
+    z-index: 99;
+    left: 10px;
+    top: 10px;
+}

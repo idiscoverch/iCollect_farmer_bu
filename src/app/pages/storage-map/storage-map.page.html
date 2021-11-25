@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="backToEdit()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{"STORAGE_MAP" | translate }}</ion-title>
+    <ion-buttons *ngIf="actionBtn" slot="end">
+      <ion-button (click)="newStorage()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id='map-type'>
+    <ion-row>
+      <ion-col size="4" *ngIf="map_online_btn">
+        <ion-button expand="block" color="{{map_online_btn_color}}" style="font-size: 10px; padding-left: 8px; padding-right: 8px;"
+          (click)="selectMap('online')"> ONLINE
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="4" *ngIf="map_online_sat_btn">
+        <ion-button expand="block" color="{{map_online_sat_btn_color}}" style="font-size: 10px; padding-left: 8px; padding-right: 8px;"
+          (click)="selectMap('online_sat')"> SATELLITE
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="4" *ngIf="map_offline_btn">
+        <ion-button expand="block" color="{{map_offline_btn_color}}" style="font-size: 10px; padding-left: 8px; padding-right: 8px;"
+          (click)="selectMap('offline')"> OFFLINE
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  
+  <div id='storage-map'></div>
+</ion-content>
